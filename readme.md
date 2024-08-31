@@ -3,3 +3,13 @@
 ## Requirements
 #### TypeScript
 #### wxt
+
+## Setup Guide
+
+```
+pnpm install
+```
+
+```
+pnpm dev
+```
