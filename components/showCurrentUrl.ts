@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export function showCurrentUrl(current_url_element: HTMLInputElement, short_url_element: HTMLInputElement) {
-    browser.tabs.query({ active: true, currentWindow: true }).then(tabs => {
+    browser.tabs.query({ active: true, currentWindow: true }).then(async tabs => {
         let currentUrl = tabs[0].url
 
         if (currentUrl && currentUrl.startsWith('http') && current_url_element) {
@@ -22,7 +22,7 @@ export function showCurrentUrl(current_url_element: HTMLInputElement, short_url_
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                        'Authorization': 'Bearer ' + (await browser.storage.local.get('authToken')).authToken
                     }
                 }).then(response => {
                     let data = response.data.data

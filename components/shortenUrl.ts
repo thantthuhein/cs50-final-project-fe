@@ -14,7 +14,7 @@ export function shortenUrl(element: HTMLButtonElement, current_url: HTMLInputEle
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                'Authorization': 'Bearer ' + (await browser.storage.local.get('authToken')).authToken
             }
         })
         .then(response => {
@@ -25,7 +25,6 @@ export function shortenUrl(element: HTMLButtonElement, current_url: HTMLInputEle
                 if (current_url.value) {
                     localStorage.setItem(current_url.value, short_url.value)
                 }
-                alert('Success')
 
             } else {
                 localStorage.removeItem(current_url.value)

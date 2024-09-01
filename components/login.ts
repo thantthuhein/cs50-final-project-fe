@@ -21,10 +21,7 @@ export function login(element: HTMLButtonElement, username: HTMLInputElement, pa
             const data = response.data.data
 
             if (data.access_token) {
-                localStorage.setItem('authToken', data.access_token)
-
-                alert('Login Success')
-                window.close()
+                browser.storage.local.set({'authToken': data.access_token})
             } else {
                 alert(data.message ?? 'Login failed: Token is required')
             }

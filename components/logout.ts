@@ -10,19 +10,17 @@ export function logout(element: HTMLButtonElement) {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                // 'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                'Authorization': 'Bearer ' + (await browser.storage.local.get('authToken')).authToken
             }
         })
         .then(response => {
             if (response.status == 200) {
-                localStorage.clear()
-
-                window.close()
+                browser.storage.local.clear()
             }
         })
         .catch(error => {
-            localStorage.clear()
-            alert(error)
+            browser.storage.local.clear()
         })
     })
 }
