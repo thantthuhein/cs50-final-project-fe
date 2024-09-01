@@ -16,7 +16,9 @@ export function showCurrentUrl(current_url_element: HTMLInputElement, short_url_
                     long_url: currentUrl ?? '',
                 }
 
-                axios.post(import.meta.env.VITE_SHORTEN_SERVER_URL + import.meta.env.VITE_SHORTEN_GENERATE_URL, payload, {
+                const url = `${import.meta.env.VITE_SHORTEN_SERVER_URL}${import.meta.env.VITE_SHORTEN_GENERATE_URL}`
+
+                axios.post(url, payload, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',

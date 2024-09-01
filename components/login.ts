@@ -1,15 +1,17 @@
 import axios from 'axios'
 
-export function attemptLogin(element: HTMLButtonElement, username: HTMLInputElement, password: HTMLInputElement) {
+export function login(element: HTMLButtonElement, username: HTMLInputElement, password: HTMLInputElement) {
     element.addEventListener('click', async (event) => {
         event.preventDefault()
 
         const payload = {
-            username: username?.value ?? '',
-            password: password?.value ?? ''
+            username: username?.value.trim() ?? '',
+            password: password?.value.trim() ?? ''
         }
 
-        axios.post(import.meta.env.VITE_SHORTEN_SERVER_URL + import.meta.env.VITE_SHORTEN_LOGIN_URL, payload, {
+        const url = `${import.meta.env.VITE_SHORTEN_SERVER_URL}${import.meta.env.VITE_SHORTEN_LOGIN_URL}`
+
+        axios.post(url, payload, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'

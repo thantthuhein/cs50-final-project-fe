@@ -1,4 +1,6 @@
+import { redirect } from '@/components/redirect';
 import './style.css';
+import { copyText } from '@/components/copyText';
 
 let isLoggedIn = localStorage.getItem('authToken')
 
@@ -8,30 +10,41 @@ if (isLoggedIn) {
     <h2>Shorten your URL</h2>
     <label for="current_url">Current URL</label>
     <br/>
-    <input id="current_url" type="text" name="current_url" value="" disabled>
+    <input id="current_url" type="text" name="current_url" value="">
     <br/>
     <label for="short_url">Shortened URL</label>
     <br/>
-    <input id="short_url" type="short_url" name="short_url" value="" disabled>
+    <input id="short_url" type="short_url" name="short_url" value="">
+    <div class="tooltip-container">
+      <div id="tooltip" class="tooltip">Copied to clipboard!</div>
+    </div>
     <br/>
     <button id="shorten" type="button">Shorten Now</button>
     <br/>
     <button id="logout" type="button">Logout</button>
   </div>`
+
+  let shortUrlInput = document.querySelector<HTMLInputElement>('#short_url')!
+  let currentUrlInput = document.querySelector<HTMLInputElement>('#current_url')!
+  let logoutButton = document.querySelector<HTMLButtonElement>('#logout')!
+  let shortenButton = document.querySelector<HTMLButtonElement>('#shorten')!
+  let tooltip = document.querySelector<HTMLDivElement>('#tooltip')!
+
   showCurrentUrl(
-    document.querySelector<HTMLInputElement>('#current_url')!,
-    document.querySelector<HTMLInputElement>('#short_url')!,
+    currentUrlInput,
+    shortUrlInput,
   )
-
   shortenUrl(
-    document.querySelector<HTMLButtonElement>('#shorten')!,
-    document.querySelector<HTMLInputElement>('#current_url')!,
-    document.querySelector<HTMLInputElement>('#short_url')!
+    shortenButton,
+    currentUrlInput,
+    shortUrlInput,
   )
-
   logout(
-    document.querySelector<HTMLButtonElement>('#logout')!,
+    logoutButton
   )
+  redirect(currentUrlInput)
+  copyText(shortUrlInput, tooltip)
+
 } else {
   document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="container">
@@ -47,7 +60,7 @@ if (isLoggedIn) {
     <button id="login" type="button">Login</button>
   </div>`
 
-  attemptLogin(
+  login(
     document.querySelector<HTMLButtonElement>('#login')!,
     document.querySelector<HTMLInputElement>('#username')!,
     document.querySelector<HTMLInputElement>('#password')!

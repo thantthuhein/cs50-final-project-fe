@@ -4,7 +4,9 @@ export function logout(element: HTMLButtonElement) {
     element.addEventListener('click', async (event) => {
         event.preventDefault()
 
-        await axios.post(import.meta.env.VITE_SHORTEN_SERVER_URL + import.meta.env.VITE_SHORTEN_LOGOUT_URL, {}, {
+        const url = `${import.meta.env.VITE_SHORTEN_SERVER_URL}${import.meta.env.VITE_SHORTEN_LOGOUT_URL}`
+
+        await axios.post(url, {}, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',

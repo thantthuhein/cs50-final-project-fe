@@ -8,7 +8,9 @@ export function shortenUrl(element: HTMLButtonElement, current_url: HTMLInputEle
             long_url: current_url?.value ?? '',
         }
 
-        axios.post(import.meta.env.VITE_SHORTEN_SERVER_URL + import.meta.env.VITE_SHORTEN_GENERATE_URL, payload, {
+        const url = `${import.meta.env.VITE_SHORTEN_SERVER_URL}${import.meta.env.VITE_SHORTEN_GENERATE_URL}`
+
+        axios.post(url, payload, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
